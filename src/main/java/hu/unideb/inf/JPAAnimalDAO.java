@@ -3,6 +3,7 @@ package hu.unideb.inf;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class JPAAnimalDAO implements AnimalDAO{
@@ -18,16 +19,30 @@ public class JPAAnimalDAO implements AnimalDAO{
 
     //R
     public List<Animal> getAllAnimals(){
-        return null;
+        TypedQuery<Animal> query = entityManager.createQuery(
+                "SELECT a FROM Animal a", Animal.class);
+        List<Animal> animals = query.getResultList();
+        return animals;
     }
 
     //U
     public void updateAnimal(Animal a){
-
+        entityManager.getTransaction().begin();
+        entityManager.persist(a);
+        entityManager.getTransaction().commit();
     }
 
     //D
     public void deleteAnimal(Animal a){
+        entityManager.getTransaction().begin();
+        entityManager.remove(a);
+        entityManager.getTransaction().commit();
+    }
 
+    @Override
+    public void saveZoo(Zoo zoo) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(zoo);
+        entityManager.getTransaction().commit();
     }
 }

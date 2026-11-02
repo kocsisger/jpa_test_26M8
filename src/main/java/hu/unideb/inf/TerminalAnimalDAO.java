@@ -22,4 +22,9 @@ public class TerminalAnimalDAO implements AnimalDAO{
     public void deleteAnimal(Animal a) {
 
     }
+
+    @Override
+    public void saveZoo(Zoo zoo) {
+
+    }
 }

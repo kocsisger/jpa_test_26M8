@@ -14,4 +14,6 @@ public interface AnimalDAO {
 
     //D
     public void deleteAnimal(Animal a);
+
+    public void saveZoo(Zoo zoo);
 }
